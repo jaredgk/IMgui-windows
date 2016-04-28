@@ -1,0 +1,95 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>IMa2 Output Analysis</title>
+        <link rel="stylesheet" type="text/css" href="c3/c3.css">
+        <link rel="stylesheet" type="text/css" href="bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="main.css">
+    </head>
+    <body>
+        <header>Data Analysis</header>
+        <nav>
+            <a href="./">Job Manager</a>
+            <br>
+            <a href="analysis.html">Analyze Output Files</a>
+            <br>
+            <a href="imfig.html">IMfig</a>
+            <br>
+            <a href="help.html">Help</a>
+        </nav>
+        <section>
+            <div class="container">
+                <div id="xmldiv">
+                    <form role="form" id="formid">
+                        <div class="form-group">
+                            <input type="file" class="btn btn-default" id="xmlup">
+                            <button type="button" class="btn btn-default" id="xmlsb">Analyze</button><br>
+                        </div>
+                        <div id="select-div" class="form-group" hidden>
+                            <select id="selectid" class="form-control"><br>
+                            </select>
+                            <div id="svgdiv" hidden>
+                                <div id="svgvals" >
+                                    <select id="colid" class="form-control">
+                                    </select>
+                                    <button type="button" id="makegraph" class="btn ben-default">Make Graph</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="savefilechart" hidden>
+                            <input type="text" class="form-control" id="savefilevalchart">
+                            <button type="button" class="btn btn-default" id="savebutton">Save Image as .png</button>
+                            <a type="button" class="btn btn-default" id="savecolstocsv">Save Columns as .csv</a>
+                        </div>
+                        <div id="savefiletable" hidden>
+                            <input type="text" class="form-control" id="savefilevaltable">
+                            <a class="btn btn-default" id="tablesavecsv">Save as .csv</a>
+                            <button type="button" class="btn btn-default" id="tablesavepng">Save as .png</button>
+                        </div>
+                    </form>
+                    <div id="tablediv" hidden>                 
+                        <table style="width:70%" id="outtable">
+                        </table>
+                    </div>
+                    <div id="chartdiv" hidden>
+                        <svg id="chart" width="800" height="600"></svg>
+                        <button type="button" class="btn btn-default btn-block" data-toggle="collapse" id="codebutton" target="codediv">Code</button>
+                        <div id="codediv">
+                            <label for="codeselect">Select Language</label>
+                            <select id="codeselect" class="form-control">
+                                <option value="0">Matplotlib</option>
+                                <option value="1">R</option>
+                                <option value="2">Matlab</option>
+                            </select>
+                            <label for="code_line_length">Maximum line length (optional, default is none)</label>
+                            <br>
+                            <input type="number" class="input-xs" id="code_line_length">
+                            <br>
+                            <label for="code-prefix">Prefix for download name (optional)</label>
+                            <br>
+                            <input type="text" id="code-prefix" class="form-control">
+                            <button type="button" class="btn btn-default" id="codeproduce">Generate Code</button>
+                            <a type="button" class="btn btn-default" id="codedownload">Download Code</a>
+                            <textarea id="codearea" class="stdouttextarea col-xs-12" wrap="off"></textarea>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </section>
+        <!-- jQuery library -->
+        <script src="jquery.min.js"></script>
+        <script src="jquery.base64.js"></script>
+<!-- Latest compiled JavaScript -->
+        <script src="bootstrap.min.js"></script>
+        <script src="http://d3js.org/d3.v3.min.js"></script>
+        <script src="c3/c3.js"></script>
+        <script src="saveSvgAsPng.js"></script>
+        <script src="visual_functions.js"></script>
+        <script src="html2csv.js"></script>
+        <script src="exportcsv.js"></script>
+        <script src="tableExport.js"></script>
+        <script src="html2canvas.js"></script>
+        
+    </body>
+</html>
