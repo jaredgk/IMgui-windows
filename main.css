@@ -1,0 +1,77 @@
+header {
+    background-color:black;
+    color:white;
+    text-align:center;
+    padding:5px;	 
+}
+nav {
+    line-height:30px;
+    background-color:#eeeeee;
+    height:300px;
+    width:150px;
+    float:left;
+    padding:5px;	      
+}
+section {
+    width:500px;
+    float:left;
+    padding:10px;	 	 
+}
+footer {
+    background-color:black;
+    color:white;
+    clear:both;
+    text-align:center;
+    padding:5px;	 	 
+}
+
+.input-div {
+    margin: 0px 0px 10px 0px;
+}
+
+.input-space {
+    margin-left:5px
+}
+
+.input-xs {
+    height: 30px;
+    width: 60px;
+    padding: 0px 5px;
+    font-size: 14px;
+    line-height: 1.5;
+    border-radius: 3px;
+}
+
+.small-p {
+    font-size: .9em;
+}
+.checkitem {
+    display: inline-block;
+}
+
+.output_textarea {
+    height: 100px;
+}
+
+.radio-label {
+    margin: 0 10px 0 5px;
+}
+
+.mcmc-el {
+    
+}
+
+.gl-el {
+    
+}
+
+.err {
+    color: red;
+}
+
+table, th, td {
+    border: 5px solid black;
+}
+th,td {
+    padding: 15px;
+}
