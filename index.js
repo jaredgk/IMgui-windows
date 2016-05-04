@@ -158,11 +158,8 @@ function startJob(job) {
         job.pipeout += s;
         if(id == jobIdx) {
             io.emit('process_data',s);
-            if(code == -1) {
-                var IMA_PATH;
-                if(os.platform() === 'win32') { IMA_PATH = IMA_PATH_WIN; }
-                else { IMA_PATH = IMA_PATH_UNIX; }
-                io.emit('job_error',IMA_PATH);
+            if(code == 1 && os.platform() === 'win32') {
+                io.emit('job_error',IMA_PATH_WIN);
             } else {
                 io.emit('end_job');
             }
