@@ -8,27 +8,29 @@ Front end, browser-based GUI for the IMa suite of evolutionary biology analysis 
 To install node.js, download the installer for Windows from [nodejs downloads](https://nodejs.org/en/download/)
 
 ##Installation
-1. Clone via commandline or download and unzip archive from this page. 
-  * To clone, make a new directory, right click in the file explorer and select "git command". Run this command in the target install directory: 
+Without git:
+1. Download the zip archive from this page, and extract it into a directory. 
+2. Open a new cmd.exe window (can be found by searching from start menu/searchbar)
+3. Navigate to the IMgui directory with the following command:
   ```
-  git clone git://github.com/jaredgk/IMgui-windows
+  cd path\\to\\IMgui\\
   ```
-  (Note this method requires git to be installed, which it can be from [here](https://git-scm.com/download/win)
-  * If downloading archive, open a cmd.exe window and navigate to the unzipped directory:
-  ```
-  cd /path/to/target/dir/
-  ```
-2. In a cmd.exe window in the directory, run the following command:
-  
+4. Enter the following command:
   ```
   npm install
   ```
+
+If git is installed on your machine, the first step can be replaced by right-clicking in the destination folder in Windows Explorer and selecting "git", then running the command:
+```
+git clone git://github.com/jaredgk/IMgui-windows
+```
+Then do steps 2-4 as described above. 
 
 ##Run
 1. To start the node.js application, run the following command in a cmd.exe window in the run directory:
   
   ```
-  node inde.js
+  node index.js
   ```
 2. Open a web browser window, and type the following path in the address bar:
   
@@ -36,7 +38,7 @@ To install node.js, download the installer for Windows from [nodejs downloads](h
   localhost:3000
   ```
 
-Note that closing this terminal or killing the node.js process will end all active IMa2 jobs started by the front end. However, closing the browser window will not affect any running jobs. 
+Note that closing this cmd.exe window or killing the node.js process will end all active IMa2 jobs started by the front end. However, closing the browser window will not affect any running jobs. 
 ##Features
 The IMgui front end had three pages: the Job Manager, Output/Burntrend Analysis, and IMfig Generation.
 
