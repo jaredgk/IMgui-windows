@@ -13,11 +13,12 @@ To install node.js, download the installer for Windows from [nodejs downloads](h
   ```
   git clone git://github.com/jaredgk/IMgui
   ```
-  * If downloading archive, open a terminal and navigate to your target directory:
+  (Note this method requires git to be installed, which it can be from [here](https://git-scm.com/download/win)
+  * If downloading archive, open a cmd.exe window and navigate to the unzipped directory:
   ```
   cd /path/to/target/dir/
   ```
-2. In a terminal, run the following command:
+2. In a cmd.exe window in the directory, run the following command:
   
   ```
   npm install
