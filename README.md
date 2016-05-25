@@ -5,13 +5,7 @@ Front end, browser-based GUI for the IMa suite of evolutionary biology analysis 
 * node.js
 * A web browser
 
-To install node.js, use one of the following methods:
-* Run the following command in a terminal window:
-```
-sudo apt-get install nodejs
-```
-* Run a different command line installation option from the [nodejs webpage](https://nodejs.org/en/download/package-manager/)
-* Download installer for your OS from [nodejs downloads](https://nodejs.org/en/download/)
+To install node.js, download the installer for Windows from [nodejs downloads](https://nodejs.org/en/download/)
 
 ##Installation
 1. Clone via commandline or download and unzip archive from this page. 
