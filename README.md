@@ -1,5 +1,5 @@
 # IMgui
-Front end, browser-based GUI for the IMa suite of evolutionary biology analysis tools. This repository contains code for linux/mac versions (mac version is currently untested but will be shortly)
+Front end, browser-based GUI for the IMa suite of evolutionary biology analysis tools. This repository contains code for the Windows version.
 
 ##Required Software
 * node.js
@@ -9,9 +9,9 @@ To install node.js, download the installer for Windows from [nodejs downloads](h
 
 ##Installation
 1. Clone via commandline or download and unzip archive from this page. 
-  * To clone, make a new directory and run this command in the target install directory: 
+  * To clone, make a new directory, right click in the file explorer and select "git command". Run this command in the target install directory: 
   ```
-  git clone git://github.com/jaredgk/IMgui
+  git clone git://github.com/jaredgk/IMgui-windows
   ```
   (Note this method requires git to be installed, which it can be from [here](https://git-scm.com/download/win)
   * If downloading archive, open a cmd.exe window and navigate to the unzipped directory:
@@ -25,7 +25,7 @@ To install node.js, download the installer for Windows from [nodejs downloads](h
   ```
 
 ##Run
-1. To start the node.js application, run the following command:
+1. To start the node.js application, run the following command in a cmd.exe window in the run directory:
   
   ```
   node inde.js
