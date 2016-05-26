@@ -1,5 +1,7 @@
-# IMgui
+# IMgui-windows
 Front end, browser-based GUI for the IMa suite of evolutionary biology analysis tools. This repository contains code for the Windows version.
+
+NOTE: The IMa2 executable included currently does not support XML output and IMburn/run control via the GUI. 
 
 ##Required Software
 * node.js
