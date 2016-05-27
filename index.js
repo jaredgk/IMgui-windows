@@ -19,7 +19,7 @@ var IMA_PATH_UNIX = 'IMa/IMa2';
 var IMA_PATH_WIN = 'IMa\\IMa2.exe';
 var IMFIG_PATH_UNIX = 'scripts/IMfig3';
 var IMFIG_PATH_MAC = 'scripts/IMfig3';
-var IMFIG_PATH_WIN = 'scripts\\IMfig.exe';
+var IMFIG_PATH_WIN = 'scripts\\IMfig3.exe';
 var PATHTEST_PATH_UNIX = 'scripts/testpath.sh';
 var PATHTEST_PATH_WIN = 'scripts\\testpath.bat';
 var PORT_NUMBER = 3000;
@@ -171,6 +171,10 @@ function startJob(job) {
     //Handles signals for beginning/end of user-controlled burn/run modes
     e.stderr.on('data',function(data) {
         console.log(data);
+        job.pipeout += data;
+        if(id == jobIdx) {
+            io.emit('process_data',data);
+        }
     });
     //Sends signal to browser to disable/enable appropriate buttons
     e.on("close",function(code) {
