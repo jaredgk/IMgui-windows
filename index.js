@@ -1,5 +1,7 @@
 /*global $, jQuery*/
 
+/*IMgui 2016- Jared Knoblauch, Arun Sethuraman, and Jody Hey*/
+
 var express = require('express');
 var app = express();
 var path = require('path');
@@ -15,7 +17,8 @@ var jobIdx = 0;
 var jobList = [];
 var IMA_PATH_UNIX = 'IMa/IMa2';
 var IMA_PATH_WIN = 'IMa\\IMa2.exe';
-var IMFIG_PATH_UNIX = 'scripts/IMfig';
+var IMFIG_PATH_UNIX = 'scripts/IMfig3';
+var IMFIG_PATH_MAC = 'scripts/IMfig3';
 var IMFIG_PATH_WIN = 'scripts\\IMfig.exe';
 var PATHTEST_PATH_UNIX = 'scripts/testpath.sh';
 var PATHTEST_PATH_WIN = 'scripts\\testpath.bat';
@@ -48,6 +51,18 @@ function getName(jobname) {
     return jobname;
 }
 
+function addSlash(pref) {
+    var slash = '/';
+    var ret = pref;
+    if(os.platform() === 'win32') {
+        slash = '\\';
+    }
+    if(pref[pref.length-1] !== slash[0]) {
+        ret += slash;
+    }
+    return ret;
+}
+
 //Return args for spawn command, contingent on operating system
 function parseArgs(ex,num_process) {
     var exl = ex.trim().split(' ');
@@ -57,7 +72,7 @@ function parseArgs(ex,num_process) {
         o.push('cmd.exe');
         argl.push('/C');
         argl.push(IMA_PATH_WIN);
-    } else if(os.platform() === 'linux') {
+    } else if(os.platform() === 'linux' || os.platform() === 'darwin') {
         if(num_process == 1) {
             o.push(IMA_PATH_UNIX);
             console.log('single thread');
@@ -67,6 +82,11 @@ function parseArgs(ex,num_process) {
         }
     }
     for(var i = 0; i < exl.length; i++) {
+        /*var t = exl[i];
+        if(t.substring(0,2) === '-o') {
+            t = addSlash(exl[i]);
+        }
+        argl.push(t);*/
         argl.push(exl[i]);
     }
     o.push(argl);
@@ -77,6 +97,7 @@ function parseFigArgs(args) {
     var o = [];
     if(os.platform() === 'linux') { o.push(IMFIG_PATH_UNIX); }
     else if(os.platform() === 'win32') { o.push(IMFIG_PATH_WIN); }
+    else if(os.platform() === 'darwin') { o.push(IMFIG_PATH_MAC); }
     var n = [];
     //n.push(IMFIG_PATH);
     console.log(args);
@@ -158,8 +179,11 @@ function startJob(job) {
         job.pipeout += s;
         if(id == jobIdx) {
             io.emit('process_data',s);
-            if(code == 1 && os.platform() === 'win32') {
-                io.emit('job_error',IMA_PATH_WIN);
+            if(code == -1) {
+                var IMA_PATH;
+                if(os.platform() === 'win32') { IMA_PATH = IMA_PATH_WIN; }
+                else { IMA_PATH = IMA_PATH_UNIX; }
+                io.emit('job_error',IMA_PATH);
             } else {
                 io.emit('end_job');
             }

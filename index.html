@@ -19,7 +19,7 @@
             <br>
             <a href="imfig.html">IMfig</a>
             <br>
-            <a href="help.html">Help</a>
+            <a target="_blank" href="help.html">Help</a>
         </nav>
         <section>
             <h2></h2>
@@ -48,29 +48,29 @@
                     <div>
                         
                         <div id="burn-div">
-                            <input type="number" class="input-xs mcmc-el" id="burn" min=0><label for="burn">Duration of burn (-b) (MCMC only/required)</label><br>
+                            <input type="text" class="input-xs mcmc-el" id="burn" min=0><label for="burn">Duration of burn, steps if integer (e.g. 100000), float for hours using user-controlled duration  (-b) (MCMC only/required)</label><br>
                         </div>
-                        <input type="number" class="input-xs mcmc-el" id="gene-save" min=0><label for="gene-save">Number of steps between genealogy saving (-d) (MCMC only)</label><br>
+                        <input type="text" class="input-xs mcmc-el" id="gene-save" min=0><label for="gene-save">Number of steps between genealogy saving, default is 100 (-d) (MCMC only)</label><br>
                         <div id="run-div">
-                            <input type="number" class="input-xs" id="run-time" min=0><label for="run-time">Run duration (-l) (required)</label><br>
+                            <input type="text" class="input-xs" id="run-time" min=0><label for="run-time">Run duration, in steps if integer, in hours if float for user-controlled duration (-L) (required)</label><br>
                         </div>
-                        <input type="number" class="input-xs mcmc-el" id="out-step" min=1><label for="out-step">Number of steps between terminal output, default is 10000 (-z) (MCMC only)</label><br>
-                        <input type="number" class="input-xs" id="seed"><label for="seed">Random number seed (-s) (default is time at execution)</label><br>
+                        <input type="text" class="input-xs mcmc-el" id="out-step" min=1><label for="out-step">Number of steps between terminal output, default is 10000 (-z) (MCMC only)</label><br>
+                        <input type="text" class="input-xs" id="seed"><label for="seed">Random number seed (-s) (default is time at execution)</label><br>
                         <input type="number" class="input-xs" id="num-process"><label for="num-process">Number of processors to run on</label>
                     </div>
                     <div class="form-group">
                         <button type="button" class="btn btn-default btn-block" data-toggle="collapse" id="b1" data-target="#t">Population Size and Migration Prior Parameters (Required)</button>
                         <div id="t" class="collapse">
                             <div id="mps-div">
-                                <input type="number" id="mps" class="input-xs">
+                                <input type="text" id="mps" class="input-xs">
                                 <label for="mps">Max Population Size (-q)</label><br>
                             </div>
                             <div id="mpv-div">
-                                <input type="number" id="mpv" class="input-xs">
+                                <input type="text" id="mpv" class="input-xs">
                                 <label for="mpv">Migration Prior Values (-m)</label><br>
                             </div>
                             <div id="mtps-div">
-                                <input type="number" id="mtps" class="input-xs">
+                                <input type="text" id="mtps" class="input-xs">
                                 <label for="mtps">Maximum Time of Population Splitting (-t)</label><br>
                             </div>
                         </div>
@@ -119,8 +119,8 @@
                             <p class="small-p"><input type="checkbox" class="mcmc-el" id="p3">2: Print TMRCA histogram for each genealogy (MCMC mode only)</p>
                             <p class="small-p"><input type="checkbox" id="p4">3: Print histogram of parameters on demographic scales (requires mutation rates in data file)</p>
                             <div id="p4_number" class="collapse">
-                                <input type="number" class="input-xs" id="gen-time"><label for="gen-time">Generation time in years</label><br>
-                                <input type="number" class="input-xs" id="mut-rate"><label for="mut-rate">Mutation rate scalar for relevant loci</label>
+                                <input type="text" class="input-xs" id="gen-time"><label for="gen-time">Generation time in years</label><br>
+                                <input type="text" class="input-xs" id="mut-rate"><label for="mut-rate">Mutation rate scalar for relevant loci</label>
                             </div>
                             <div class="inc_j1_p5">
                             <p class="small-p"><input type="checkbox" id="p5">4: Print histogram of splitting times divided by prior (do not use with -j0)</p>
@@ -159,10 +159,10 @@
                                 <input type="radio" name="heating-type" value="g" class="radio-label disableheat" id="geometric" disabled><label for="geometric" class="radio-label">Geometric</label>
                             </p>
                             <div class="small-p">
-                                <div id="bnoc-div"><input type="number" id="burn-noc" class="input-xs disableheat" min=2 disabled><label for="burn-noc">Number of chains (-hn)</label><br></div>
-                                <div id="bswap-div"><input type="number" id="burn-swap" class="input-xs disableheat" disabled><label for="burn-swap">Number of chain swap events/step (-hk) (default: number of chains)</label><br></div>
-                                <div id="bfirst-div"><input type="number" id="burn-first" class="input-xs disableheat" min=0.9 max=1.1 disabled><label for="burn-first">First heating parameter (-ha)</label><br></div>
-                                <div id="bsecond-div"><input type="number" id="burn-second" class="input-xs disableheat" min=0 max=1 disabled><label for="burn-second">Second heating parameter (-hb)</label><br></div>
+                                <div id="bnoc-div"><input type="text" id="burn-noc" class="input-xs disableheat" min=2 disabled><label for="burn-noc">Number of chains (-hn)</label><br></div>
+                                <div id="bswap-div"><input type="text" id="burn-swap" class="input-xs disableheat" disabled><label for="burn-swap">Number of chain swap events/step (-hk) (default: number of chains)</label><br></div>
+                                <div id="bfirst-div"><input type="text" id="burn-first" class="input-xs disableheat" min=0.9 max=1.1 disabled><label for="burn-first">First heating parameter (-ha)</label><br></div>
+                                <div id="bsecond-div"><input type="text" id="burn-second" class="input-xs disableheat" min=0 max=1 disabled><label for="burn-second">Second heating parameter (-hb)</label><br></div>
                             </div>
                         </div>
                         <button type="button" class="btn btn-default" id="bb">Execute</button><p class="small-p"><input type="checkbox" id="validate-check">Validate that input files are present before run</p>
@@ -201,6 +201,9 @@
             }
             console.log('refresh should write this');
             getActiveLabels();
+            var sep = '/';
+            if(navigator.appVersion.indexOf("Win") != -1) { sep = '\\'; }
+            console.log(sep);
         </script>
         
     </body>

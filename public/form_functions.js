@@ -1,4 +1,7 @@
 /*global alert, $, jQuery, FileReader*/
+
+/*IMgui 2016- Jared Knoblauch, Arun Sethuraman, and Jody Hey*/
+
 "use strict";
 
 
@@ -6,6 +9,7 @@ function getName(el) {
     var pref = '';
     if($('#working-dir').val().length !== 0) {
         pref = $('#working-dir').val();
+        if(pref[pref.length-1] !== sep) { pref += sep; }
     }
     var filename = $(el).val().replace(/[ ]/g,'%20');
     if(pref.length !== 0) { filename = pref + filename; }
@@ -244,7 +248,7 @@ function submitJobRequest() {
         num_process: num_process
     }, function (data) {
         if(data.fail === 1) {
-            var msg = "Error: "+o+" is already running as a used prefix";
+            var msg = "Error: "+o+" is already stored as a used prefix, delete the job from the job manager to reuse";
             errmsg(msg);
         }
         else {
