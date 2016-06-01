@@ -15,7 +15,7 @@ Without git:
 2. Open a new cmd.exe window (can be found by searching from start menu/searchbar)
 3. Navigate to the IMgui directory with the following command:
   ```
-  cd path\to\IMgui\
+  cd C:\path\to\IMgui\
   ```
 4. Enter the following command:
   ```
