@@ -28,10 +28,11 @@ function createCmdLine() {
     }
     cc = $('#output-file').val();
     if(cc.length !== 0) {
-        args.push('-opublic/'+cc+'.jpg');
+        args.push('-opublic/'+cc+'.eps');
         ro.prefix = cc;
     } else {
-        ro.prefix = 'im_eps_file';
+        ro.prefix = 'im_fig_file';
+        args.push('-opublic/im_fig_file.eps');
     }
     cc = $('#font-type').val();
     if(cc.length !== 0) {
@@ -136,7 +137,7 @@ function submitFigRequest(cp) {
             p.appendTo($('#main-div'));
             var i = $('<img>');
             i.attr('id','server_image');
-            i.attr("src",cp.prefix+'.jpg');
+            i.attr("src",cp.prefix.replace(/eps/g,'jpg')+'.jpg');
             i.appendTo($('#main-div'));
         } else {
             addError('An error has occured: '+JSON.stringify(msg.msg),$('#submit-button'));

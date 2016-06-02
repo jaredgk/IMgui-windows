@@ -16,10 +16,10 @@ var fs = require('fs');
 var jobIdx = 0;
 var jobList = [];
 var IMA_PATH_UNIX = 'IMa/IMa2';
-var IMA_PATH_WIN = 'IMa\\IMa2.exe';
+var IMA_PATH_WIN = 'IMa\\IMa2p.exe';
 var IMFIG_PATH_UNIX = 'scripts/IMfig3';
-var IMFIG_PATH_MAC = 'scripts/IMfig3';
-var IMFIG_PATH_WIN = 'scripts\\IMfig3.exe';
+var IMFIG_PATH_MAC = 'scripts/IMfig3-mac';
+var IMFIG_PATH_WIN = 'scripts\\IMfig.exe';
 var PATHTEST_PATH_UNIX = 'scripts/testpath.sh';
 var PATHTEST_PATH_WIN = 'scripts\\testpath.bat';
 var PORT_NUMBER = 3000;
@@ -51,18 +51,6 @@ function getName(jobname) {
     return jobname;
 }
 
-function addSlash(pref) {
-    var slash = '/';
-    var ret = pref;
-    if(os.platform() === 'win32') {
-        slash = '\\';
-    }
-    if(pref[pref.length-1] !== slash[0]) {
-        ret += slash;
-    }
-    return ret;
-}
-
 //Return args for spawn command, contingent on operating system
 function parseArgs(ex,num_process) {
     var exl = ex.trim().split(' ');
@@ -82,11 +70,6 @@ function parseArgs(ex,num_process) {
         }
     }
     for(var i = 0; i < exl.length; i++) {
-        /*var t = exl[i];
-        if(t.substring(0,2) === '-o') {
-            t = addSlash(exl[i]);
-        }
-        argl.push(t);*/
         argl.push(exl[i]);
     }
     o.push(argl);
@@ -171,10 +154,6 @@ function startJob(job) {
     //Handles signals for beginning/end of user-controlled burn/run modes
     e.stderr.on('data',function(data) {
         console.log(data);
-        job.pipeout += data;
-        if(id == jobIdx) {
-            io.emit('process_data',data);
-        }
     });
     //Sends signal to browser to disable/enable appropriate buttons
     e.on("close",function(code) {
