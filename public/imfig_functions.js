@@ -4,16 +4,15 @@
 
 "use strict";
 
-function verifyCmdLine() {
-    var fl = 0;
-}
-
+//Adds error below element with erraneous value
 function addError(er,el) {
     var s = '<p class="err-add" style="color:red">'+er+'</p>';
     var p = $(s);
     p.appendTo(el.parent());
 }
 
+//Removes old errors, checks that args are valid and highlights errors
+//Returns args list if valid command line, nothing if invalid
 function createCmdLine() {
     var fl = 0;
     var ro = {};
@@ -125,6 +124,9 @@ function createCmdLine() {
     return ro;
 }
 
+//Assuming args are valid, submits job to server
+//If successful, img tag will have src changed to target image
+//If unsuccessful, error will be displayed under run button
 function submitFigRequest(cp) {
     $.post('/',{
         post: 'imfig',
@@ -132,13 +134,10 @@ function submitFigRequest(cp) {
         prefix: cp.prefix
     }, function (msg) {
         if(msg.fail === 0) {
-            $('#server_image').remove();
-            var p = $('<p class="small-p">To download, right click on image and select "Save Image As..."</p>');
-            p.appendTo($('#main-div'));
-            var i = $('<img>');
-            i.attr('id','server_image');
-            i.attr("src",cp.prefix.replace(/eps/g,'jpg')+'.jpg');
-            i.appendTo($('#main-div'));
+            $('#image-div').show();
+            var epstext = 'The .eps file for this figure is located at '+msg.path;
+            $('#eps-path').text(epstext);
+            $('#server_image').attr("src",cp.prefix.replace(/eps/g,'jpg')+'.jpg');
         } else {
             addError('An error has occured: '+JSON.stringify(msg.msg),$('#submit-button'));
         }
@@ -148,12 +147,7 @@ function submitFigRequest(cp) {
     
 }
 
-$('#testbutton').click(function () {
-    $.post('/', {
-        post: 'getpic'
-    });
-});
-
+//Verifies args are valid, and if so, sends job to server
 $('#submit-button').click(function () {
     var cmdline_params = createCmdLine();
     if(cmdline_params.args.length !== 0) {

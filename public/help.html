@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>IMa2 Help</title>
+        <title>IMgui Help</title>
         <link rel="stylesheet" type="text/css" href="main.css">
         <link rel="stylesheet" type="text/css" href="bootstrap.min.css">
     </head>
@@ -22,7 +22,7 @@
             <a href="help.html">Help</a>
         </nav>
         <div class="container col-xs-8">
-            <h1 class="h-title">How to use IM-Gui</h1>
+            <h1 class="h-title">How to use IMgui</h1>
             <div id="command-line-help">
                 <h3>Job Running</h3>
                 <h4>Providing input parameters</h4>
@@ -33,16 +33,14 @@
                     <li>The node.js server will check that the output prefix provided is not being used by another job</li>
                 </ul>
                 <p>Any errors will be reported under the "Execute" button.</p>
-                <p>Once a job is validated, the node.js server will add the job to the job list, then start the job. Stdout from jobs will be stored on the node.js server, and the user can select which job's stdout stream to view in the browser. There are six buttons that can be clicked during a job:</p>
+                <p>Once a job is validated, the node.js server will add the job to the job list, then start the job. Stdout from jobs will be stored on the server, and the user can select which job's stdout stream to view in the browser. There are four buttons that can be clicked during a job:</p>
                 <ul>
                     <li>Kill Job: Stops active job. Job can then be restarted or removed from job list.</li>
-                    <li>Send IMburn/run signal: If either burn or run duration is set to be user-controlled ("Duration of burn" and/or "Run duration" values are floating point, not integer), this button will be enabled when the program is waiting for a user signal to end the current phase. Clicking will signal program to advance to next stage.</li>
+                    <li>Send IMburn/run signal: If either burn or run duration is set to be user-controlled ("Duration of burn" and/or "Run duration" values are floating point, not integer, and their respective file creation check boxes have been selected), this button will be enabled when the program is waiting for a user signal to end the current phase. Clicking will signal program to advance to next stage.</li>
                     <li>Restart Job: Restarts job with same parameters as initially provided (changing them in the web browser form will NOT change the job information).</li>
                     <li>Remove Job Information: Will remove job from job list, also frees up output prefix for use with a different job.</li>
                     <li>Refresh: Will refresh the output from the current job. Use if output appars out of order.</li>
                 </ul>
-                <p>If there is an error with the job starting, it will display in the text box. If the error is not clear, the terminal/command prompt window that is running node.js will display additional information about the error. 
-                </p>
             </div>
             <div id="analysis-help">
                 <h3>Output XML File Analysis</h3>
@@ -58,8 +56,15 @@
             </div>
             <div id="imfig-help">
                 <h3>IMfig</h3>
-                <p>IMfig is a python script that has been converted to executable for for use on platforms without Python and GraphicsMagick. It generates a summary plot describing migration rates between populations. To generate the plot, provide the path to the non-XML output file in the "Input File" field. The output prefix is optional but must NOT contain any directory prefix, since get requests for the final image must be done from the internally specified output folder. All other options are optional. When submit is clicked, values are validated to ensure they fall in a proper range, with error messages being presented under options that have invalid values. The job is then sent to the server, which will create an EPS and JPG file for the given input. The JPG image will be posted to the web browser, where it can be downloaded via right-click. The EPS file will still be present in the public/ subfolder in the installation directory.</p>
+                <p>IMfig is a python script that has been converted to executable for for use on platforms without Python and GraphicsMagick. It generates a summary plot describing migration rates between populations. To generate the plot, provide the path to the non-XML output file in the "Input File" field. The output prefix is optional but must NOT contain any directory prefix, since get requests for the final image must be done from the internally specified output folder. All other options are optional. When submit is clicked, values are validated to ensure they fall in a proper range, with error messages being presented under options that have invalid values. The job is then sent to the server, which will create an EPS and JPG file for the given input. The JPG image will be posted to the web browser, where it can be downloaded via right-click. The EPS file will still be present in the public/ directory.</p>
             </div>
         </div>
+        <footer>
+            <hr style="border-top: 1px solid #000">
+            <p class="smaller-p">IMgui: A browser-based GUI for Isolation with Migration Analyses</p>
+            <p class="smaller-p">Version 0.0.1</p>
+            <p class="smaller-p">Copyright Jared Knoblauch, Arun Sethuraman, and Jody Hey (2016)</p>
+            <p class="smaller-p">To report issues, contact Jared Knoblauch at <a href="mailto:jaredknoblauch@gmail.com">jaredknoblauch@gmail.com</a></p>
+        </footer>
     </body>
 </html>

@@ -234,8 +234,14 @@ function submitJobRequest() {
     var s = printParams();
     //var o = $('#outtag').val();
     var o = getName('#outtag');
-    var burn = (blstat('#burn') === 2) ? 1 : 0;
-    var run = (blstat('#run-time') === 2) ? 1 : 0;
+    var burn = 0;
+    if(blstat('#burn') === 2 && document.getElementById('imburn-check').checked) {
+        burn = 1;
+    }
+    var run = 0;
+    if(blstat('#run-time') === 2 && document.getElementById('imrun-check').checked) {
+        run = 1;
+    }
     var name = getJobName();
     var num_process = $('#num-process').val().length !== 0 ? $('#num-process').val() : 1;
     $.post('/', {
@@ -261,6 +267,7 @@ function submitJobRequest() {
 
 //Sends request to validate all input filenames are present on user's file system.
 //Submits job request if successful (normally done in calling function)
+//An x value for a file indicates that file does not need to be checked for
 function validatePaths() {
     var postJson = {
         post: 'runvalidate',
@@ -318,7 +325,8 @@ function validateArgs() {
     var fl = 0;
     var bf;
     var bs;
-    var prior_check = $('#c4').is(':checked') ? 0 : 1;
+    //prior_check: mandatory prior fields not required in cmdline if prior file provided
+    var prior_check = $('#c4').is(':checked') ? 0 : 1; 
     $('#error-field').hide();
     $('.err-add').remove();
     $('.btn-danger').removeClass('btn-danger');
@@ -412,7 +420,7 @@ function validateArgs() {
     else {
         if($('#run-time') !== 1) {
             fl = 1;
-            errmsg('Run duration must be provided, as an integer');
+            errmsg('Run duration must be provided');
             $('#run-div').addClass('bg-danger');
         }
     }
@@ -527,7 +535,7 @@ $(document).ready(function () {
     });
 
 
-    //Sets job status on server to 3 (done), removes job from job list
+    //Sets job status on server to 3 (done), removes job from client job list
     $('#removejob').click( function () {
         var id = $('#jobselect').val();
         $.post('/', {

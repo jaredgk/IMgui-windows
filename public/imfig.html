@@ -74,8 +74,20 @@
                     <p class="small-p"><input type="checkbox" id="v-check">Multiple colors for population boxes, red arrows for migration</p>
                 </div>
                 <button type="button" id="submit-button">Submit</button>
+                <div id="image-div" hidden>
+                    <p class="small-p">To download .jpg, right click on image and select "Save Image As..."</p>
+                    <p class="small-p" id="eps-path"></p>
+                    <img id="server_image" src="">
+                </div>
             </form>
         </div>
+        <footer>
+            <hr style="border-top: 1px solid #000">
+            <p class="smaller-p">IMgui: A browser-based GUI for Isolation with Migration Analyses</p>
+            <p class="smaller-p">Version 0.0.1</p>
+            <p class="smaller-p">Copyright Jared Knoblauch, Arun Sethuraman, and Jody Hey (2016)</p>
+            <p class="smaller-p">To report issues, contact Jared Knoblauch at <a href="mailto:jaredknoblauch@gmail.com">jaredknoblauch@gmail.com</a></p>
+        </footer>
         <!-- jQuery library -->
         <script src="jquery.min.js"></script>
 

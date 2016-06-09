@@ -23,11 +23,16 @@ var IMFIG_PATH_WIN = 'scripts\\IMfig.exe';
 var PATHTEST_PATH_UNIX = 'scripts/testpath.sh';
 var PATHTEST_PATH_WIN = 'scripts\\testpath.bat';
 var PORT_NUMBER = 3000;
-
+var DEBUG_FLAG = 0;
 
 app.use(express.static(path.join(__dirname,'public')));
 app.use(bodyParser.urlencoded({ extended: false }));
 
+function cLog(msg,priority) {
+    if(priority >= DEBUG_FLAG) {
+        console.log(msg);
+    }
+}
 //Checks that no active job (state 0, 1, or 2) has the same prefix as the 
 //submitted job. Return 0 if there's a duplicate, 1 if not
 function checkUniqPrefix(pref) {
@@ -51,44 +56,56 @@ function getName(jobname) {
     return jobname;
 }
 
-//Return args for spawn command, contingent on operating system
-function parseArgs(ex,num_process) {
-    var exl = ex.trim().split(' ');
-    var o = [];
-    var argl = [];
+/*Return args for spawn command, contingent on operating system
+  First element of output list is spawn command (cmd.exe for windows,
+  exe path for single-thread unix/mac, mpirun for multi-threaded)
+  Second is arguments to first command
+*/
+function parseArgs(arg_string,num_process) {
+    var arg_list = arg_string.trim().split(' ');
+    var spawn_args = [];
+    var cmd_args = [];
     if(os.platform() === 'win32') {
-        o.push('cmd.exe');
-        argl.push('/C');
-        argl.push(IMA_PATH_WIN);
+        spawn_args.push('cmd.exe');
+        cmd_args.push('/C');
+        cmd_args.push(IMA_PATH_WIN);
     } else if(os.platform() === 'linux' || os.platform() === 'darwin') {
         if(num_process == 1) {
-            o.push(IMA_PATH_UNIX);
+            spawn_args.push(IMA_PATH_UNIX);
             console.log('single thread');
         } else {
-            o.push('mpirun');
-            argl.push('-np',num_process,IMA_PATH_UNIX);
+            spawn_args.push('mpirun');
+            cmd_args.push('-np',num_process,IMA_PATH_UNIX);
         }
     }
-    for(var i = 0; i < exl.length; i++) {
-        argl.push(exl[i]);
+    for(var i = 0; i < arg_list.length; i++) {
+        cmd_args.push(arg_list[i]);
     }
-    o.push(argl);
-    return o;
+    spawn_args.push(cmd_args);
+    return spawn_args;
 }
 
+/*Returns args for IMfig run. First arg is path to exe dependent on
+  OS, followed by args from browser. Output arg is modified on windows
+  systems to ensure path has correct separator
+
+*/
 function parseFigArgs(args) {
-    var o = [];
-    if(os.platform() === 'linux') { o.push(IMFIG_PATH_UNIX); }
-    else if(os.platform() === 'win32') { o.push(IMFIG_PATH_WIN); }
-    else if(os.platform() === 'darwin') { o.push(IMFIG_PATH_MAC); }
-    var n = [];
-    //n.push(IMFIG_PATH);
-    console.log(args);
+    var spawn_args = [];
+    if(os.platform() === 'linux') { spawn_args.push(IMFIG_PATH_UNIX); }
+    else if(os.platform() === 'win32') { spawn_args.push(IMFIG_PATH_WIN); }
+    else if(os.platform() === 'darwin') { spawn_args.push(IMFIG_PATH_MAC); }
+    var cmd_args = [];
+    cLog(args,1);
     for(var i = 0; i < args.length; i++) {
-        n.push(args[i]);
+        var t = args[i];
+        if(args[i].substr(0,2) === '-o' && os.platform() === 'win32') {
+            t = args[i].replace('/','\\');
+        }
+        cmd_args.push(t);
     }
-    o.push(n);
-    return o;
+    spawn_args.push(cmd_args);
+    return spawn_args;
 }
 
 function getValidateArgs(args) {
@@ -334,13 +351,17 @@ app.post('/', function (req,res) {
         sendf = 1;
     } else if (p === 'imfig') {
         var s_args = parseFigArgs(JSON.parse(req.body.args));
+        var pref = req.body.prefix;
+        pref += '.eps';
+        var fullpath = path.join(__dirname,'public',pref);
         sendf = 1;
         console.log(s_args);
         var s = spawn(s_args[0],s_args[1]);
         var response_sent = 0;
         s.on('close',function () {
             var j = {
-                fail: 0
+                fail: 0,
+                path: fullpath
             };
             if(response_sent === 0) {
                 response_sent = 1;

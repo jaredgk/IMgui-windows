@@ -7,7 +7,7 @@ header {
 nav {
     line-height:30px;
     background-color:#eeeeee;
-    height:300px;
+    height:160px;
     width:150px;
     float:left;
     padding:5px;	      
@@ -18,8 +18,8 @@ section {
     padding:10px;	 	 
 }
 footer {
-    background-color:black;
-    color:white;
+    background-color:white;
+    color:black;
     clear:both;
     text-align:center;
     padding:5px;	 	 
@@ -45,6 +45,11 @@ footer {
 .small-p {
     font-size: .9em;
 }
+
+.smaller-p {
+    font-size: .8em;
+}
+
 .checkitem {
     display: inline-block;
 }
@@ -79,6 +84,10 @@ th,td {
 .stdouttextarea {
     overflow-y: scroll;
     height: 600px;
+}
+.codetextarea {
+    overflow-y: scroll;
+    height: 300px;
 }
 .divspace {
     margin: 20px 0px 20px 0px;
